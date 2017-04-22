@@ -4,8 +4,8 @@
   appversion="*"
   mmversion="*"
   name="Expandable Scoreboard"
-  version="1.1"
-  date="1/8/2017"
+  version="1.2"
+  date="4/22/2017"
   description="Enables the old expandable scoreboard in HoN 4.0."
   author="MrHappyAsthma and JinZero"
   weblink="https://github.com/mrhappyasthma/HoN-Expandable-Scoreboard-Mod"
@@ -92,9 +92,7 @@
 				visible="true"
 				y="-1.0h" x="-1h" height="1.8h" width="1.8h"
 				color="invisible"
-				onmouseluplua="GetWidget('game_scoreboard_popup', 'game'):SetVisible(0)"
-				onmouseldownlua="GetWidget('game_scoreboard_popup', 'game'):SetVisible(1)"
-				onclicklua=""
+				onclicklua="local widget = GetWidget('game_scoreboard_popup', 'game')	widget:SetVisible(not widget:IsVisible())"
 				interactive="false"
 			>]]>
     </find>
@@ -235,9 +233,7 @@
 				visible="true"
 				y="-1.0h" x="-1h" height="1.8h" width="1.8h"
 				color="invisible"
-				onmouseluplua="GetWidget('game_scoreboard_popup', 'game'):SetVisible(0)"
-				onmouseldownlua="GetWidget('game_scoreboard_popup', 'game'):SetVisible(1)"
-				onclicklua=""
+				onclicklua="local widget = GetWidget('game_scoreboard_popup', 'game')	widget:SetVisible(not widget:IsVisible())"
 				interactive="false"
 			>]]>
     </find>
@@ -378,9 +374,7 @@
 				visible="true"
 				y="-1.0h" x="-1h" height="1.8h" width="1.8h"
 				color="invisible"
-				onmouseluplua="GetWidget('game_scoreboard_popup', 'game'):SetVisible(0)"
-				onmouseldownlua="GetWidget('game_scoreboard_popup', 'game'):SetVisible(1)"
-				onclicklua=""
+				onclicklua="local widget = GetWidget('game_scoreboard_popup', 'game')	widget:SetVisible(not widget:IsVisible())"
 				interactive="false"
 			>]]>
     </find>
