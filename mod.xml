@@ -4,8 +4,8 @@
   appversion="*"
   mmversion="*"
   name="Expandable Scoreboard"
-  version="1.3"
-  date="1/3/2018"
+  version="1.4"
+  date="1/21/2018"
   description="Enables the old expandable scoreboard in HoN 4.0."
   author="MrHappyAsthma (Special shout out to JinZero for the help)"
   weblink="https://github.com/mrhappyasthma/HoN-Expandable-Scoreboard-Mod"
@@ -297,147 +297,6 @@
 
   <!-- Sentinel UI -->
   <editfile name="ui/game_garena_other.interface">
-    <!-- First, we need to add the missing elements back into the scoreboard
-         entries. (Username, kills, deaths, assists, add-a-friend button. -->
-    <find><![CDATA[				<label x="0.2h" y="-0.1h" width="2.0h" height="100%" textalign="center" textvalign="center" font="dyn_10" color="yellow" shadow="true" shadowcolor="black" noclick="true"
-					watch="ScoreboardPlayerRespawn{index}"
-					ontriggerlua="	self:SetVisible((tonumber(param0) > 0) and (not AtoB(param1)))
-									self:SetText(param0)"]]>
-    </find>
-    <insert position="before"><![CDATA[
-      <!-- Player name -->
-      <label height="100%" textvalign="center" font="dyn_9" color="white" shadow="true" noclick="true"
-        watch="ScoreboardPlayer{index}"
-        ontriggerlua="self:SetText(param0) self:SetColor(param3)"
-      />
-
-      <panel x="-3.6h" width="10.0h" height="100%" align="right" float="right" color="invisible" noclick="true">
-        <!-- Kills -->
-        <label width="30%" height="100%" textalign="center" textvalign="center" color="0 1 0 1" shadow="true" font="dyn_9" noclick="true"
-          watch="ScoreboardPlayer{index}"
-          ontriggerlua="self:SetText(param5)"
-        />
-        <panel width="5%" height="100%" color="invisible" noclick="1">
-          <label height="100%" textalign="center" textvalign="center" color=".8 .8 .8 1" shadow="true" font="dyn_9" noclick="1" content="/" />
-        </panel>
-        <!-- Deaths -->
-        <label width="30%" height="100%" textalign="center" textvalign="center" color="1 0 0 1" shadow="true" font="dyn_9" noclick="true"
-          watch="ScoreboardPlayer{index}"
-          ontriggerlua="self:SetText(param6)"
-        />
-        <panel width="5%" height="100%" color="invisible" noclick="1">
-          <label height="100%" textalign="center" textvalign="center" color=".8 .8 .8 1" shadow="true" font="dyn_9" noclick="1" content="/" />
-        </panel>
-        <!-- Assists -->
-        <label width="30%" height="100%" textalign="center" textvalign="center" color="#ffaa00" shadow="true" font="dyn_9" noclick="true"
-          watch="ScoreboardPlayer{index}"
-          ontriggerlua="self:SetText(param7)"
-        />
-      </panel>
-
-      <!-- Add Friend Btn -->
-      <instance name="addfriend_button" index="{index}" />
-    ]]></insert>
-
-    <!-- Second, we need to reposition the scoreboard to its old location. -->
-    <find><![CDATA[	<panel name="Nstatusboard" height="2.0h" width="29.5h" x="23.0h" y="8.0h" align="right" noclick="true" >]]>
-    </find>
-    <replace><![CDATA[]
-      <panel name="Nstatusboard" height="2.0h" width="29.5h" x="23.0h" y="4.0h" align="right" noclick="true" >
-    ]]></replace>
-
-    <!-- Third, we need to adjust the unexpanded state to show the hero icon AND
-         the player's level (as before). -->
-    <find><![CDATA[		<panel y="0.5h" x="2h" grow="true" growinvis="false" width="28.0h" align="right" float="bottom" padding="1" noclick="true">]]>
-    </find>
-    <replace><![CDATA[
-      <panel y="0.5h" grow="true" growinvis="false" width="28.0h" align="right" float="bottom" padding="1" noclick="true">
-    ]]></replace>
-
-    <!-- Not sure why... but the padding is slight off now (even though the
-         values match the old ones...) Just adjust this manually for now. -->
-    <find><![CDATA[					<panel grow="true" growinvis="false" width="100%" noclick="true" float="bottom" padding="0.2h">]]>
-    </find>
-    <replace><![CDATA[
-      <panel grow="true" growinvis="false" width="100%" noclick="true" float="bottom" padding="0.3h">
-    ]]></replace>
-    <find><![CDATA[					<panel grow="true" growinvis="false" width="100%" noclick="true" float="bottom" padding="0.2h">]]>
-    </find>
-    <replace><![CDATA[
-      <panel grow="true" growinvis="false" width="100%" noclick="true" float="bottom" padding="0.3h">
-    ]]></replace>
-
-    <!-- Lastly we need to add the expand/unexpand buttons. (Note: Place these
-         outside one layer of panels, so it looks like before.) -->
-    <find><![CDATA[			<button
-				name="Nscores_max"
-				visible="true"
-				y="-1.0h" x="-1h" height="1.8h" width="1.8h"
-				color="invisible"
-				onclicklua="local widget = GetWidget('game_scoreboard_popup', 'game')	widget:SetVisible(not widget:IsVisible())"
-				interactive="false"
-			>]]>
-    </find>
-    <replace><![CDATA[</panel>
-		<!-- Collapse Scoreboard -->
-		<button
-			name="Nscores_min"
-			visible="false"
-			y="-0.3h" height="1.7h" width="1.7h"
-			color="invisible"
-			onclicklua="
-        GetWidget('Nscores_min', 'game'):SetVisible(false)
-        GetWidget('Nscores_max', 'game'):SetVisible(true)
-        GetWidget('Nstatusboard', 'game'):SlideX('23h', 250)
-      "
-			interactive="false"
-		>
-			<widgetstate statename="up">
-				<frame texture="/ui/frames/rounded_bg_white.tga" borderthickness="0.5h" color="#007191" blockinput="false" noclick="true"/>
-				<frame texture="/ui/frames/roundframe.tga" color="0 0 0 1" borderthickness="0.5h" blockinput="false" noclick="true"/>
-				<image width="1.3h" height="1.3h" align="center" valign="center" color=".75 .75 .75 1" texture="/ui/fe2/elements/minimize_bar.tga" noclick="true" />
-			</widgetstate>
-			<widgetstate statename="over">
-				<frame texture="/ui/frames/rounded_bg_white.tga" borderthickness="0.5h" color="#0096ec" blockinput="false" noclick="true"/>
-				<frame texture="/ui/frames/roundframe.tga" color="0 0 0 1" borderthickness="0.5h" blockinput="false" noclick="true"/>
-				<image width="1.3h" height="1.3h" align="center" valign="center" color="1 1 1 1" texture="/ui/fe2/elements/minimize_bar.tga" noclick="true" />
-			</widgetstate>
-			<widgetstate statename="down" x="1" y="1">
-				<frame texture="/ui/frames/rounded_bg_white.tga" borderthickness="0.5h" color="#007191" blockinput="false" noclick="true"/>
-				<frame texture="/ui/frames/roundframe.tga" color="0 0 0 1" borderthickness="0.5h" blockinput="false" noclick="true"/>
-				<image width="1.3h" height="1.3h" align="center" valign="center" color="1 1 1 1" texture="/ui/fe2/elements/minimize_bar.tga" noclick="true" />
-			</widgetstate>
-		</button>
-
-    <!-- Expand Scoreboard -->
-		<button
-			name="Nscores_max"
-			visible="true"
-			y="-0.3h" height="1.7h" width="1.7h"
-			color="invisible"
-			onclicklua="
-        GetWidget('Nscores_min', 'game'):SetVisible(true)
-        GetWidget('Nscores_max', 'game'):SetVisible(false)
-        GetWidget('Nstatusboard'):SlideX('1h', 250)
-      "
-			interactive="false"
-		>]]>
-    </replace>
-
-    <!-- Remove one of the closing panel tags, since we place the buttons
-         outside of one already. -->
-    <find><![CDATA[			<panel width="100%" height="0.1h" noclick="true" />
-		</panel>
-	</panel>]]>
-    </find>
-    <replace><![CDATA[
-    	  <panel width="100%" height="0.1h" noclick="true" />
-		  </panel>
-    ]]></replace>
-  </editfile>
-
-    <!-- 8-Bit UI -->
-  <editfile name="ui/game_retro.interface">
     <!-- First, we need to add the missing elements back into the scoreboard
          entries. (Username, kills, deaths, assists, add-a-friend button. -->
     <find><![CDATA[				<label x="0.2h" y="-0.1h" width="2.0h" height="100%" textalign="center" textvalign="center" font="dyn_10" color="yellow" shadow="true" shadowcolor="black" noclick="true"
