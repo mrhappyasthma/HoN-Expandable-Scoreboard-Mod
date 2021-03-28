@@ -4,10 +4,11 @@
   appversion="*"
   mmversion="*"
   name="Expandable Scoreboard"
-  version="1.4"
-  date="1/21/2018"
+  version="1.5"
+  date="2019-01-18"
   description="Enables the old expandable scoreboard in HoN 4.0."
-  author="MrHappyAsthma (Special shout out to JinZero for the help)"
+  author="MrHappyAsthma (Special shout out to JinZero for the help)
+  Updated by EngineerT"
   weblink="https://github.com/mrhappyasthma/HoN-Expandable-Scoreboard-Mod"
   updatecheckurl="http://raw.githubusercontent.com/mrhappyasthma/HoN-Expandable-Scoreboard-Mod/master/version.txt"
   updatedownloadurl="http://github.com/mrhappyasthma/HoN-Expandable-Scoreboard-Mod/releases/download/Latest/expandable_scoreboard.honmod"
@@ -15,6 +16,12 @@
 
   <!-- Classic UI -->
   <editfile name="ui/game_legacy.interface">
+    <!-- v1.5 Trigger for the bind -->
+    <find><![CDATA[<!-- Triggers -->]]></find>
+    <insert position="after"><![CDATA[<!-- Expandable Scoreboard: v1.5 Trigger for the bind -->
+      <trigger name="expScorebShift" />]]>
+    </insert>
+
     <!-- First, we need to add the missing elements back into the scoreboard
          entries. (Username, kills, deaths, assists, add-a-friend button. -->
     <find><![CDATA[				<label x="0.2h" y="-0.1h" width="2.0h" height="100%" textalign="center" textvalign="center" font="dyn_10" color="yellow" shadow="true" shadowcolor="black" noclick="true"
@@ -60,8 +67,23 @@
     <!-- Second, we need to reposition the scoreboard to its old location. -->
     <find><![CDATA[	<panel name="Nstatusboard" height="2.0h" width="29.5h" x="23.0h" y="8.0h" align="right" noclick="true" >]]>
     </find>
-    <replace><![CDATA[]
-      <panel name="Nstatusboard" height="2.0h" width="29.5h" x="23.0h" y="4.0h" align="right" noclick="true" >
+    <!-- v1.5 Adding cvar and watch for the hotkey press -->
+    <replace><![CDATA[
+      <panel name="Nstatusboard" height="2.0h" width="29.5h" x="23.0h" y="4.0h" align="right" noclick="true"
+      onload="CreateBool('expScorebExpanded', 0)"
+      watch="expScorebShift"
+      ontriggerlua="
+      if GetCvarBool('expScorebExpanded') then
+        GetWidget('Nscores_min', 'game'):SetVisible(false)
+        GetWidget('Nscores_max', 'game'):SetVisible(true)
+        self:SlideX('23h', 250)
+        Set('expScorebExpanded', 0)
+      else
+        GetWidget('Nscores_min', 'game'):SetVisible(true)
+        GetWidget('Nscores_max', 'game'):SetVisible(false)
+        self:SlideX('1h', 250)
+        Set('expScorebExpanded', 1)
+      end">
     ]]></replace>
 
     <!-- Third, we need to adjust the unexpanded state to show the hero icon AND
@@ -136,7 +158,7 @@
 			onclicklua="
         GetWidget('Nscores_min', 'game'):SetVisible(true)
         GetWidget('Nscores_max', 'game'):SetVisible(false)
-        GetWidget('Nstatusboard'):SlideX('1h', 250)
+        GetWidget('Nstatusboard', 'game'):SlideX('1h', 250)
       "
 			interactive="false"
 		>]]>
@@ -156,6 +178,12 @@
 
   <!-- Razor UI -->
   <editfile name="ui/game_apex.interface">
+    <!-- v1.5 Trigger for the bind -->
+    <find><![CDATA[<!-- Triggers -->]]></find>
+    <insert position="after"><![CDATA[<!-- Expandable Scoreboard: v1.5 Trigger for the bind -->
+      <trigger name="expScorebShift" />]]>
+    </insert>
+
     <!-- First, we need to add the missing elements back into the scoreboard
          entries. (Username, kills, deaths, assists, add-a-friend button. -->
     <find><![CDATA[				<label x="0.2h" y="-0.1h" width="2.0h" height="100%" textalign="center" textvalign="center" font="dyn_10" color="yellow" shadow="true" shadowcolor="black" noclick="true"
@@ -201,8 +229,23 @@
     <!-- Second, we need to reposition the scoreboard to its old location. -->
     <find><![CDATA[	<panel name="Nstatusboard" height="2.0h" width="29.5h" x="23.0h" y="8.0h" align="right" noclick="true" >]]>
     </find>
-    <replace><![CDATA[]
-      <panel name="Nstatusboard" height="2.0h" width="29.5h" x="23.0h" y="4.0h" align="right" noclick="true" >
+    <!-- v1.5 Adding cvar and watch for the hotkey press -->
+    <replace><![CDATA[
+      <panel name="Nstatusboard" height="2.0h" width="29.5h" x="23.0h" y="4.0h" align="right" noclick="true"
+      onload="CreateBool('expScorebExpanded', 0)"
+      watch="expScorebShift"
+      ontriggerlua="
+      if GetCvarBool('expScorebExpanded') then
+        GetWidget('Nscores_min', 'game'):SetVisible(false)
+        GetWidget('Nscores_max', 'game'):SetVisible(true)
+        self:SlideX('23h', 250)
+        Set('expScorebExpanded', 0)
+      else
+        GetWidget('Nscores_min', 'game'):SetVisible(true)
+        GetWidget('Nscores_max', 'game'):SetVisible(false)
+        self:SlideX('1h', 250)
+        Set('expScorebExpanded', 1)
+      end">
     ]]></replace>
 
     <!-- Third, we need to adjust the unexpanded state to show the hero icon AND
@@ -277,7 +320,7 @@
 			onclicklua="
         GetWidget('Nscores_min', 'game'):SetVisible(true)
         GetWidget('Nscores_max', 'game'):SetVisible(false)
-        GetWidget('Nstatusboard'):SlideX('1h', 250)
+        GetWidget('Nstatusboard', 'game'):SlideX('1h', 250)
       "
 			interactive="false"
 		>]]>
@@ -297,6 +340,12 @@
 
   <!-- Sentinel UI -->
   <editfile name="ui/game_garena_other.interface">
+    <!-- v1.5 Trigger for the bind -->
+    <find><![CDATA[<!-- Triggers -->]]></find>
+    <insert position="after"><![CDATA[<!-- Expandable Scoreboard: v1.5 Trigger for the bind -->
+      <trigger name="expScorebShift" />]]>
+    </insert>
+
     <!-- First, we need to add the missing elements back into the scoreboard
          entries. (Username, kills, deaths, assists, add-a-friend button. -->
     <find><![CDATA[				<label x="0.2h" y="-0.1h" width="2.0h" height="100%" textalign="center" textvalign="center" font="dyn_10" color="yellow" shadow="true" shadowcolor="black" noclick="true"
@@ -342,8 +391,23 @@
     <!-- Second, we need to reposition the scoreboard to its old location. -->
     <find><![CDATA[	<panel name="Nstatusboard" height="2.0h" width="29.5h" x="23.0h" y="8.0h" align="right" noclick="true" >]]>
     </find>
-    <replace><![CDATA[]
-      <panel name="Nstatusboard" height="2.0h" width="29.5h" x="23.0h" y="4.0h" align="right" noclick="true" >
+    <!-- v1.5 Adding cvar and watch for the hotkey press -->
+    <replace><![CDATA[
+      <panel name="Nstatusboard" height="2.0h" width="29.5h" x="23.0h" y="4.0h" align="right" noclick="true"
+      onload="CreateBool('expScorebExpanded', 0)"
+      watch="expScorebShift"
+      ontriggerlua="
+      if GetCvarBool('expScorebExpanded') then
+        GetWidget('Nscores_min', 'game'):SetVisible(false)
+        GetWidget('Nscores_max', 'game'):SetVisible(true)
+        self:SlideX('23h', 250)
+        Set('expScorebExpanded', 0)
+      else
+        GetWidget('Nscores_min', 'game'):SetVisible(true)
+        GetWidget('Nscores_max', 'game'):SetVisible(false)
+        self:SlideX('1h', 250)
+        Set('expScorebExpanded', 1)
+      end">
     ]]></replace>
 
     <!-- Third, we need to adjust the unexpanded state to show the hero icon AND
@@ -418,7 +482,7 @@
 			onclicklua="
         GetWidget('Nscores_min', 'game'):SetVisible(true)
         GetWidget('Nscores_max', 'game'):SetVisible(false)
-        GetWidget('Nstatusboard'):SlideX('1h', 250)
+        GetWidget('Nstatusboard', 'game'):SlideX('1h', 250)
       "
 			interactive="false"
 		>]]>
@@ -434,5 +498,16 @@
     	  <panel width="100%" height="0.1h" noclick="true" />
 		  </panel>
     ]]></replace>
+  </editfile>
+
+  <!-- Options -->
+  <!-- v1.5 Added hotkey for expand/collapse -->
+  <editfile name="ui/mod_options_elements.package">
+    <find><![CDATA[<!-- INSERT AFTER THIS -->]]></find>
+    <insert position="after"><![CDATA[
+      <instance name="mod_options" mod_id="expScoreb" mod_name="Expandable Scoreboard"/>
+      <instance mod_id="expScoreb" name="mod_keybind_header" />
+	  <instance name="mod_keybind" mod_id="expScoreb" param="Trigger expScorebShift" label="Expand/Collapse"/>]]>
+    </insert>
   </editfile>
 </modification>
