@@ -13,6 +13,12 @@ As of HoN 4.0 update, the scoreboard has been changed. This mod brings back the 
 
 *Note: You can still use the `X` hotkey to show the new scoreboard overlay.*
 
+### Keybind
+
+You may optionally set a keybind for expanding/collapsing the scoreboard by going to the Mod Options:
+
+![Example image of the settings page where you can set the keybind.](https://i.imgur.com/90E2o3Q.jpg])
+
 ## Installing
 0. You will need the [HoN Mod Manager](https://forums.heroesofnewerth.com/index.php?/topic/112-hon-mod-manager-download/) to use this mod. So first, install that.
 
