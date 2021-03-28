@@ -14,7 +14,7 @@ As of HoN 4.0 update, the scoreboard has been changed. This mod brings back the 
 *Note: You can still use the `X` hotkey to show the new scoreboard overlay.*
 
 ## Installing
-0. You will need the [HoN Mod Manager](https://forums.heroesofnewerth.com/showthread.php?596451-HoN-Modification-Manager-1-4-0&p=16563263&viewfull=1#post16563263) to use this mod. So first, install that.
+0. You will need the [HoN Mod Manager](https://forums.heroesofnewerth.com/index.php?/topic/112-hon-mod-manager-download/) to use this mod. So first, install that.
 
 1. Once that is installed, you can download the latest release of the Expandable Scoreboard mod from [here](https://github.com/mrhappyasthma/HoN-Expandable-Scoreboard-Mod/releases/download/Latest/expandable_scoreboard.honmod).
 
